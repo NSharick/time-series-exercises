@@ -58,3 +58,15 @@ def stores_items_sales_data():
     df = pd.merge(sales_df, items_df, how='left', on='item_id')
     df = pd.merge(df, stores_df, how='left', on='store_id')
     return df
+
+
+##Data Acquisition - Open Power Systems Data for Germany
+def get_opsd():
+    filename = 'opsd.csv'
+    if os.path.exists(filename):
+        print('Reading from .csv')
+        return pd.read_csv(filename)
+    print('Getting a fresh copy of the data')
+    df = pd.read_csv('https://raw.githubusercontent.com/jenfly/opsd/master/opsd_germany_daily.csv')
+    df.to_csv(filename, index=False)
+    return df
