@@ -22,4 +22,17 @@ def prep_sales(df):
     return df
 
 #prep function for the ops data
+def prep_opsd(df):
+    '''
+    This function takes in the dataframe returned by the 'get_opsd' function in the acquire.py file.
+    It changes the date column to a datetime type, sets the date as the index, makes 'month' and 'year' columns
+    and fills the null value cells with a zero
+    '''
+    df['Date'] = pd.to_datetime(df.Date)
+    df = df.set_index('Date').sort_index()
+    df['month'] = df.index.strftime('%m-%b')
+    df['year'] = df.index.strftime('%Y')
+    df = df.fillna(0)
+    return df
+
 
